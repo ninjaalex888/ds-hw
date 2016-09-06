@@ -59,7 +59,7 @@ is uncontested, the margin should be "100", in that the percentage
 difference between the first place candidate and the second is 100.  
 
     $ python districts.py
-    $ head district_totals.csv
+    $ head district_margins.csv
     STATE,DISTRICT,MARGIN
     Arizona,2,0.07000000000000028
     California,7,0.7999999999999972
