@@ -1,5 +1,6 @@
 from collections import defaultdict
 from csv import DictReader, DictWriter
+import csv
 import heapq
 
 kHEADER = ["STATE", "DISTRICT", "MARGIN"]
@@ -11,9 +12,32 @@ def district_margins(state_lines):
 
     @lines The csv rows that correspond to the districts of a single state
     """
-
+    #print(state_lines)
+    margins = {}
+    district_votes = []
+    districts = []
+    for row in state_lines:
+        districts.append(row['D'])
+    districts.remove('H')
+    districts = filter(None, districts)
+    districts = list(districts)
+    for x in set(districts):
+        for row in state_lines:
+            if row['D'] == x:
+                if(row['GENERAL %']):
+                    votes = row['GENERAL %'].replace(',','.')
+                    votes = votes.replace('%','')
+                    district_votes.append(float(votes))
+                    #print(row['GENERAL VOTES '])
+        firstPlace = max(district_votes)
+        district_votes.remove(firstPlace)
+        secondPlace = max(district_votes)
+        #print("First is " + str(firstPlace) + " Second is " + str(secondPlace))
+        margin = firstPlace-secondPlace
+        margins[int(x)] = margin
     # Complete this function
-    return dict((int(x["D"]), 25.0) for x in state_lines if x["D"] and x["D"] != "H")
+    #return dict((int(x["D"]), 25.0) for x in state_lines if x["D"] and x["D"] != "H")
+    return margins
 
 def all_states(lines):
     """
@@ -22,8 +46,16 @@ def all_states(lines):
     in one line of Python.
     """
 
+    listOfStates = []
+    for row in lines:
+        listOfStates.append(row['STATE'])
+    if None in listOfStates: listOfStates.remove(None)
+    #print(set(listOfStates))
+    #print(set(["Alaska"]))
+
+
     # Complete this function
-    return set(["Alabama"])
+    return set(listOfStates)
 
 def all_state_rows(lines, state):
     """
@@ -32,10 +64,19 @@ def all_state_rows(lines, state):
     @state Only return lines from this state
     @lines Only return lines from this larger list
     """
-
+    
+    #print("STATE IS " + state)
+    listStateRows = []
+    for row in lines:
+        #print("STATE IS " + state + " Lines is " + row['STATE'])
+        if row['STATE'] == state:
+            listStateRows.append(row)
+        
+    #print(listOfStates)
     # Complete/correct this function
-    for ii in lines[:10]:
-        yield ii
+    # sfor ii in lines[:10]:
+    #     yield ii
+    return listStateRows
 
 if __name__ == "__main__":
     # You shouldn't need to modify this part of the code
