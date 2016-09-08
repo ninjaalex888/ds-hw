@@ -45,7 +45,7 @@ plain ASCII text file) that:
 Submitting Your Code
 -----------------------
 
-You'll need to submit your assignment (word_counts.py, districts.py,
+You'll need to submit your assignment (lm.py, districts.py,
 and writeup.txt) on
-[Moodle](https://moodle.cs.colorado.edu/course/view.php?id=49) as an
+Moodle as an
 upload.
