@@ -12,32 +12,110 @@ def district_margins(state_lines):
 
     @lines The csv rows that correspond to the districts of a single state
     """
-    #print(state_lines)
     margins = {}
-    district_votes = []
     districts = []
+    count = 0
     for row in state_lines:
-        districts.append(row['D'])
-    districts.remove('H')
-    districts = filter(None, districts)
-    districts = list(districts)
-    for x in set(districts):
-        for row in state_lines:
-            if row['D'] == x:
+        state = row['STATE']
+        #if count == 0:
+            #print("IN STATE: " + state)
+        if row['D']:
+            if row['D'] != "H":
                 if(row['GENERAL %']):
-                    votes = row['GENERAL %'].replace(',','.')
-                    votes = votes.replace('%','')
-                    district_votes.append(float(votes))
-                    #print(row['GENERAL VOTES '])
-        firstPlace = max(district_votes)
-        district_votes.remove(firstPlace)
-        secondPlace = max(district_votes)
-        #print("First is " + str(firstPlace) + " Second is " + str(secondPlace))
-        margin = firstPlace-secondPlace
-        margins[int(x)] = margin
-    # Complete this function
-    #return dict((int(x["D"]), 25.0) for x in state_lines if x["D"] and x["D"] != "H")
+                    #print("In ditrict: " + row['D'])
+                    #print("General Vote %" + row['GENERAL %'])
+                    districts.append(row['D'])
+        count = count + 1
+    districts = list(set(districts))
+    #print(districts)
+    for x in districts:
+        districtVotes = []
+        for row in state_lines:
+            if districts:
+                if row['D'] == x:
+                    if(row['GENERAL %']):
+                        votes = row['GENERAL %'].replace(',','.')
+                        votes = votes.replace('%','')
+                        districtVotes.append(float(votes))
+        #print(districtVotes)
+        if districtVotes:
+            first = max(districtVotes)
+            districtVotes.remove(first)
+            #print(first)
+            margin = first
+        if districtVotes:
+            second = max(districtVotes)
+            margin = first - second
+            #print(second)
+        if len(x) > 2: #if district is in format XX - UNEXPIRED TERM
+            #print("Before cut" + x)
+            x = x[0:2]
+            #print("After cut" + x)
+            margins[int(x)] = margin
+        else:
+            margins[int(x)] = margin
+    #print(state)
+    #print(margins)
+    #print("===========================================")
     return margins
+    # district_votes = []
+    # districts = []
+    # count = 0 
+    # for row in state_lines:
+    #     if row['D'] != "H":
+    #         if row['D']:
+    #             state = row['STATE']
+    #             #print("STATE IS " + state)
+    #             #print(row['D'])
+    #             #print(count)
+    #             count = count + 1
+
+    #             districts.append(row['D'])
+        
+    # #districts.remove('H')
+    # districts = filter(None, districts)
+    # districts = list(districts)
+    # #print(districts)
+    # #print("SET OF DISTRICTS")
+    # #print(set(districts))
+    # secondPlace = 0
+    # #print("STATE IS " + state)
+    # for x in set(districts):
+
+    #     #print("In ditrict: " + x)
+    #     for row in state_lines:
+    #         if row['D'] == x:
+    #             if(row['GENERAL %']):
+    #                 votes = row['GENERAL %'].replace(',','.')
+    #                 votes = votes.replace('%','')
+    #                 district_votes.append(float(votes))
+    #                 #print("General Vote %" + row['GENERAL %'])
+    #     #print(district_votes)
+    #     firstPlace = max(district_votes)
+    #     #print("Before first")
+    #     #print(district_votes)
+    #     district_votes.remove(firstPlace)
+    #     if district_votes:
+    #         secondPlace = max(district_votes)
+    #     #print("After first ")
+    #     #print(district_votes)
+    #     #print("First is " + str(firstPlace) + " Second is " + str(secondPlace))
+    #     margin = firstPlace-secondPlace
+    #     if len(x) > 2: #if district is in format XX - UNEXPIRED TERM
+    #         #print("Before cut" + x)
+    #         x = x[0:2]
+    #         #print("After cut" + x)
+    #         margins[int(x)] = margin
+    #     else:
+    #         margins[int(x)] = margin
+    # #print(margins[0])
+    # # Complete this function
+    # #return dict((int(x["D"]), 25.0) for x in state_lines if x["D"] and x["D"] != "H")
+        
+    #     #if(margins):
+    #         #print("MARGINS")
+    #         #print(margins)
+    #return margins
 
 def all_states(lines):
     """
@@ -74,8 +152,10 @@ def all_state_rows(lines, state):
         
     #print(listOfStates)
     # Complete/correct this function
-    # sfor ii in lines[:10]:
-    #     yield ii
+    # for ii in lines[:10]:
+    #     print(ii)
+    #     print("")
+        #yield ii
     return listStateRows
 
 if __name__ == "__main__":
