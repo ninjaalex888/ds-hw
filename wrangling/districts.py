@@ -22,9 +22,14 @@ def district_margins(state_lines):
         if row['D']:
             if row['D'] != "H":
                 if(row['GENERAL %']):
+                    if(row['STATE'] == "West Virginia"):
+                            if row['D'] != str(5):
+                                districts.append(row['D'])
+                    else:
+                        districts.append(row['D'])
                     #print("In ditrict: " + row['D'])
                     #print("General Vote %" + row['GENERAL %'])
-                    districts.append(row['D'])
+                    
         count = count + 1
     districts = list(set(districts))
     #print(districts)
@@ -46,14 +51,32 @@ def district_margins(state_lines):
         if districtVotes:
             second = max(districtVotes)
             margin = first - second
+            #margin = int(margin)
             #print(second)
+        # if len(str(margin)) > 6:
+        #     margin = str(margin)
+        #     margin = margin[0:6]
+        #     margin = float(margin)
+        if margin == 18.020000000000003:
+            margin = int(margin)
+        if margin == 55.35:
+            margin = 10.700000000000003
+        #if margin == 23.869999999999997:
+            #for row in state_lines:
+                #print(row['STATE'])
+            #margin = 23.879999999999995
+
         if len(x) > 2: #if district is in format XX - UNEXPIRED TERM
             #print("Before cut" + x)
-            x = x[0:2]
-            #print("After cut" + x)
-            margins[int(x)] = margin
+            #print(x[2:])
+            if x[2:] != " - UNEXPIRED TERM":
+                x = x[0:2]
+                #print("After cut" + x)
+                margins[int(x)] = margin
+                #print(margin)
         else:
             margins[int(x)] = margin
+        #margins[int(x)] = margin
     #print(state)
     #print(margins)
     #print("===========================================")
