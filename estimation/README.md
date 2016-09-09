@@ -18,15 +18,11 @@ look like:
     
     OK
 
-District Margins (15 points)
+Districts (15 points)
 ----------------------------
 
 In the US, our legislature is made up of representatives of individual
-*districts* (unlike proportional representation systems).  Some of
-these districts are competitive, meaning that the winner of the
-election is not a "sure thing" based on the voters in the districts.
-However, for a variety of reasons, many of these districts are not
-very competitive.  
+*districts* (unlike proportional representation systems).  Your task is to characterize districts in "Red" states vs. districts in "Blue" states.
 
 Words Presidents Use (15 points)
 -------------------------------
@@ -34,14 +30,14 @@ Words Presidents Use (15 points)
 Each year, the president of the United States is required to make a
 speech to congress describing the "State of the Union".  We are going
 to create a simple *bigram language model* with *add one (Laplace)*
-smoothing.
+smoothing.  Your task is to characterize Republican vs. Democrat presidents based on their speech.
 
 Writeup (10 points)
 -----------------------
 
 Finally, include a brief plain-text file (not PDF, not Word, just a
 plain ASCII text file) that:
-* Describes whether Colorado's congression districts look more like the congressional districts of states that Obama won or that Romeny won
+* Describes which of Colorado's congression districts look more like the congressional districts of states that Obama won or that Romney won
 * Gives an example of a *word* that Obama said that no previous president said
 * Gives an example of a *bigram* that Obama said that no previous president said
 * Explains why you got the answer that you did for the party of Obama
@@ -49,7 +45,7 @@ plain ASCII text file) that:
 Submitting Your Code
 -----------------------
 
-You'll need to submit your assignment (word_counts.py, districts.py,
+You'll need to submit your assignment (lm.py, districts.py,
 and writeup.txt) on
-[Moodle](https://moodle.cs.colorado.edu/course/view.php?id=49) as an
+Moodle as an
 upload.
