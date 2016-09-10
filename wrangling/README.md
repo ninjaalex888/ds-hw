@@ -130,6 +130,8 @@ upload.
 
 Hints
 -----------------------
-* Only consider elections for the 114th congress.  Ignore primaries and special elections for unexpired terms.
+* Only consider general elections for the 114th congress.  Ignore primaries and special elections for unexpired terms.
 * The file may have errors.  For the purposes of this assignment, you are not allowed to edit the source data.  This may result in you having to resort to dirty hacks.
-* Different states handle party affiliations differently.
+* You will need to understand the file to understand what's going on.  This is part of the assignment.  Wikipedia is your friend.
+* Different states handle party affiliations differently.  Don't assume that if your code works for one state, it will work for all states.  
+* Make sure you have the correct number of districts in your output file.  There are 438 voting districts, plus a handful of non-voting districts.
