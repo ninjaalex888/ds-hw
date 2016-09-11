@@ -1,8 +1,5 @@
 from collections import Counter
 from zipfile import ZipFile
-import re
-
-kWORDS = re.compile("[a-z]{4,}")
 
 def text_from_zipfile(zip_file):
     """
