@@ -1,6 +1,5 @@
 from collections import Counter
 from zipfile import ZipFile
-import re
 
 def text_from_zipfile(zip_file):
     """
