@@ -18,25 +18,53 @@ look like:
     
     OK
 
-Districts (15 points)
+Districts (10 points)
 ----------------------------
 
 In the US, our legislature is made up of representatives of individual
-*districts* (unlike proportional representation systems).  Your task is to characterize districts in "Red" states vs. districts in "Blue" states.
+*districts* (unlike proportional representation systems).  Your task
+is to characterize districts in "Red" Republican states vs. districts
+in "Blue" Democratic states.
 
-Words Presidents Use (15 points)
+First, you'll need to extract the Republican share of the vote in a
+district.  Then, you will need to compute the parameters of a Gaussian
+distribution, then compute the probability of an observation given
+those parameters.
+
+You will need to implement the following functions:
+* ml_mean
+* ml_variance
+* log_probability
+* republican_share
+
+After you've done that, the main function will then report for each of
+Colorado's district whether it looks more like a red state or a blue state.
+
+Words Presidents Use (20 points)
 -------------------------------
 
 Each year, the president of the United States is required to make a
 speech to congress describing the "State of the Union".  We are going
 to create a simple *bigram language model* with *add one (Laplace)*
-smoothing.  Your task is to characterize Republican vs. Democrat presidents based on their speech.
+smoothing.  Your task is to characterize Republican vs. Democrat
+presidents based on their speech.
+
+To do this, you'll need to implement the following functions:
+* train_seen
+* generate
+* laplace
+* add_train
+
+WARNING: Writing a unit test for generation is tricky (without
+creating a testing stub for the random number generator), so make sure
+you are dillegent in making sure this works correctly.
 
 Writeup (10 points)
 -----------------------
 
 Finally, include a brief plain-text file (not PDF, not Word, just a
 plain ASCII text file) that:
+* Describes your approach
 * Describes whether Colorado's congression districts look more like
   the congressional districts of states that Obama won or that Romeny
   won
@@ -48,10 +76,7 @@ plain ASCII text file) that:
   previous president said
 * Gives an interesting example of a *bigram* that Obama said that no
   previous president said
-* The code prints out the probability of each president who is not a
-  Republican or Democrat gave a speech associated with one of the
-  parties.  Investigate why this happened for at least one president's
-  speech.
+* Generates a random sentence from a Republican and a Democrat.
 
 Submitting Your Code
 -----------------------
