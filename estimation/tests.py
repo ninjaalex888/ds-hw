@@ -59,8 +59,8 @@ class TestLanguageModel(unittest.TestCase):
         lm.add_train("the")
         lm.add_train("")
 
-        self.assertEqual(lm.laplace("the", kEND), log(.5))
-        self.assertEqual(lm.laplace(kSTART, "the"), log(.4))
+        self.assertAlmostEqual(lm.laplace("the", kEND), log(.5), places=3)
+        self.assertAlmostEqual(lm.laplace(kSTART, "the"), log(.4), places=3)
 
     def test_logprob_two_words(self):
         lm = BigramLanguageModel()        
@@ -70,8 +70,8 @@ class TestLanguageModel(unittest.TestCase):
         lm.add_train("the nation")
         lm.add_train("nation")
 
-        self.assertEqual(lm.laplace("the", "nation"), log(2/5.))
-        self.assertEqual(lm.laplace(kSTART, kEND), log(1/6.))
+        self.assertAlmostEqual(lm.laplace("the", "nation"), log(2/5.), places=3)
+        self.assertAlmostEqual(lm.laplace(kSTART, kEND), log(1/6.), places=3)
 
         
     def test_generate(self):
