@@ -74,10 +74,7 @@ def bigrams(sentence):
             count += 1
         print('=====')
     print(bigrams)
-    for ii, ww in enumerate(sentence[:-1]):
-        #print(ii)
-        #print(ww)
-        yield ww, sentence[ii + 1]
+    return bigrams
 
 
 
