@@ -39,15 +39,44 @@ def tokenize(sentence):
     """
     Given a sentence, return a list of all the words in the sentence.
     """
+    words =[]
     
-    return kWORDS.findall(sentence.lower())
+    wordList = re.sub("[^a-zA-Z]", " ",  sentence).split()
+    for word in wordList:
+        words.append(word.lower())  
+    
+    #print(sentence)
+    #print(words)
+    #print("=====================================================================")
+    return words
 
 def bigrams(sentence):
     """
     Given a sentence, generate all bigrams in the sentence.
     """
-    
+    sentence = "thank you, god bless you, and god bless america."
+    sentenceList = tokenize(sentence)
+    print(sentenceList)
+    print(len(sentence))
+    bigrams = []
+
+    for word in sentenceList:
+        count = 0
+        for letter in word:
+            #print(word)
+            if count != (len(word)-1):
+                bigram = word[count]
+                bigram = bigram + word[count+1]
+                #print(word[count])
+                #print(word[count+1])
+                #print(bigram)
+                bigrams.append(bigram)
+            count += 1
+        print('=====')
+    print(bigrams)
     for ii, ww in enumerate(sentence[:-1]):
+        #print(ii)
+        #print(ww)
         yield ww, sentence[ii + 1]
 
 
