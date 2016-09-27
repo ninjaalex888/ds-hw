@@ -54,30 +54,29 @@ def bigrams(sentence):
     """
     Given a sentence, generate all bigrams in the sentence.
     """
-    sentence = "thank you, god bless you, and god bless america."
-    sentenceList = tokenize(sentence)
-    print(sentenceList)
-    print(len(sentence))
-    bigrams = []
+    #sentence = "thank you, god bless you, and god bless america."
+    # sentenceList = tokenize(sentence)
+    # #print(sentenceList)
+    # #print(len(sentence))
+    # bigrams = []
 
-    for word in sentenceList:
-        count = 0
-        for letter in word:
-            #print(word)
-            if count != (len(word)-1):
-                bigram = word[count]
-                bigram = bigram + word[count+1]
-                #print(word[count])
-                #print(word[count+1])
-                #print(bigram)
-                bigrams.append(bigram)
-            count += 1
-        print('=====')
-    print(bigrams)
-    return bigrams
-
-
-
+    # for word in sentenceList:
+    #     count = 0
+    #     for letter in word:
+    #         #print(word)
+    #         if count != (len(word)-1):
+    #             bigram = word[count]
+    #             bigram = bigram + word[count+1]
+    #             #print(word[count])
+    #             #print(word[count+1])
+    #             #print(bigram)
+    #             bigrams.append(bigram)
+    #         count += 1
+    #     #print('=====')
+    # #print(bigrams)
+    # return bigrams
+    for ii, ww in enumerate(sentence[:-1]):
+        yield ww, sentence[ii + 1]
 
 class BigramLanguageModel:
 
@@ -86,6 +85,8 @@ class BigramLanguageModel:
         
         # Add your code here!
         # Bigram counts
+        #print(Counter(bigrams(self)))
+        #self._bigram_count = bigrams(self)
         self._obs_counts = defaultdict(Counter)
         self._vocab_final = False
 
