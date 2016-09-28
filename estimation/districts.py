@@ -32,6 +32,8 @@ def ml_mean(values):
     outside core Python (sum and len are fine).
     """
 
+    
+
     # Your code here
     return 0.5
 
@@ -63,21 +65,28 @@ def republican_share(lines, states):
     districts in the states provided.
     """
     repub_shares_iter = {}
-    print(states)
-    print("")
+    #print(states)
+    #print("")
     for x in lines:
       if x["PARTY"] == "R":
         if x["GENERAL %"]:
-          print(x["PARTY"])
-          print(x["GENERAL %"])
-          print(x["D"])
-          print(x["STATE"])
-          repub_shares_iter[(x["STATE"], x["D"])] = x["GENERAL %"]
-          print("\n\n")
-    
-    print(repub_shares_iter)
+          # print(x["PARTY"])
+          #print(x["GENERAL %"])
+          # print(x["D"])
+          # print(x["STATE"])
+          votes = x['GENERAL %'].replace(',','.')
+          votes = votes.replace('%','')
+          district = x["D"]
+          if len(district) > 2:
+            district = district[0:2]
+            district = float(district)
+          else:
+            district = float(district)
+          votes = float(votes)
+          repub_shares_iter[(x["STATE"], district)] = votes
+
     # Your code here
-    return {("Alaska", 0): 50.97}
+    return repub_shares_iter
 
 if __name__ == "__main__":
     # Don't modify this code
