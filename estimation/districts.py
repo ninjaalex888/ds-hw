@@ -6,6 +6,7 @@ from csv import DictReader
 from collections import defaultdict
 from math import log
 from math import pi as kPI
+from math import exp
 
 kOBAMA = set(["D.C.", "Hawaii", "Vermont", "New York", "Rhode Island",
               "Maryland", "California", "Massachusetts", "Delaware", "New Jersey",
@@ -31,11 +32,14 @@ def ml_mean(values):
     There are many libraries that do this, but do not use any functions
     outside core Python (sum and len are fine).
     """
-
-    
-
+    #print(values)
+    # count = 0
+    # for x in values:
+    #   total += x
+    #   count += 1
+    mlMean = sum(values)/len(values)
     # Your code here
-    return 0.5
+    return mlMean
 
 def ml_variance(values, mean):
     """
@@ -47,17 +51,29 @@ def ml_variance(values, mean):
     directly.  (And to be clear, you're not allowed to use them.)
     """
 
+    #(1/n-1)sum((xi-mean)^2)
+    n = len(values)
+    total = 0
+    for x in values:
+      total += (x - mean)**2
+
+    variance = total/(len(values)-1)
+
     # Your code here
-    return 1.0
+    return variance/2
 
 def log_probability(value, mean, variance):
     """
     Given a normal distribution with a given mean and varience, compute the
     log probability of a value from that distribution.
     """
+    #print(kPI)
+    base = (1/(2*kPI*variance)**0.5)
+    variance = base*exp((-(value-mean)**2)/(2*(variance)))
+    #variance = (1/(2*kPI*variance**2)**0.5)**((-(value-mean)**2)/(2*(variance**2)))
 
     # Your code here
-    return 0.0
+    return log(variance)
 
 def republican_share(lines, states):
     """
@@ -68,22 +84,19 @@ def republican_share(lines, states):
     #print(states)
     #print("")
     for x in lines:
-      if x["PARTY"] == "R":
-        if x["GENERAL %"]:
-          # print(x["PARTY"])
-          #print(x["GENERAL %"])
-          # print(x["D"])
-          # print(x["STATE"])
-          votes = x['GENERAL %'].replace(',','.')
-          votes = votes.replace('%','')
-          district = x["D"]
-          if len(district) > 2:
-            district = district[0:2]
-            district = float(district)
-          else:
-            district = float(district)
-          votes = float(votes)
-          repub_shares_iter[(x["STATE"], district)] = votes
+      if x["STATE"] in states:
+        if x["PARTY"] == "R":
+          if x["GENERAL %"]:
+            votes = x['GENERAL %'].replace(',','.')
+            votes = votes.replace('%','')
+            district = x["D"]
+            if len(district) > 2:
+              district = district[0:2]
+              district = float(district)
+            else:
+              district = float(district)
+            votes = float(votes)
+            repub_shares_iter[(x["STATE"], district)] = votes
 
     # Your code here
     return repub_shares_iter
