@@ -62,6 +62,20 @@ def republican_share(lines, states):
     Return an iterator over the Republican share of the vote in all
     districts in the states provided.
     """
+    repub_shares_iter = {}
+    print(states)
+    print("")
+    for x in lines:
+      if x["PARTY"] == "R":
+        if x["GENERAL %"]:
+          print(x["PARTY"])
+          print(x["GENERAL %"])
+          print(x["D"])
+          print(x["STATE"])
+          repub_shares_iter[(x["STATE"], x["D"])] = x["GENERAL %"]
+          print("\n\n")
+    
+    print(repub_shares_iter)
     # Your code here
     return {("Alaska", 0): 50.97}
 
