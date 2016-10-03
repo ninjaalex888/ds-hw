@@ -1,0 +1,52 @@
+Approach: 
+
+Well, I started early, but got off to a slow start. I really picked up speed after going to office hours, so I will do that earlier next time. I generally knew how to code some of the functions, with a little google of proper syntax to use/formula to use. The harder functions I was able to tackle with the help of TAs in office hours that were able to answer my specific questions that was stopping me from continuing myself. 
+
+-----------
+
+Colorado:
+
+		Obama		Romney
+================================================================================
+District 4	-4.328798	-3.507712
+District 5	-3.870028	-3.514679
+District 6	-3.465107	-3.818580
+District 7	-3.456423	-4.387312
+District 1	-4.667329	-6.751031
+District 2	-3.502869	-4.565428
+District 3	-3.739527	-3.552597
+
+I think Colorado districts look more like the congressional districts that Obama won, but not by a lot. 
+
+-----------
+
+Histogram:
+
+I plotted the republican share of votes added up among the districts per state for the states won by Obama and Romney based on the sets given in the top of districts.py
+
+histogram.png file
+
+-----------
+
+Word Obama Used, that hasn't been used by a previous President:
+
+To do this, I made a set of all the words from previous presidents then a set of the words used by obama, and subtracted the wrods from previous presidents from the obama set to find words used by obama that haven't been used before.
+
+I found he used the word 'quagmire' which hadn't been seen from the previous presidents. 
+
+-----------
+
+Bigram Obama said: 
+
+Very similar to how I did the word, except now with bigrams as the 'word', to find unique bigrams to obama. 
+
+The bigram I found was "for quagmire", that hadn't been a bigram used by any previous president.
+
+-----------
+
+Random Sentence from Republican or Democrat:
+
+Split the state of union speeches up by political party, then split by sentences, add to two lists, add the repub speeces to the republican list, and democrat speeches to the democrat list. Then generate a random integer within the length of those list of sentences, and there is your random sentence from a republican or democrat. 
+
+Such as: "Here's the really good news: If we maintain our resolve, we will produce balanced budgets as far as the eye can see." From the Democrat list. 
+

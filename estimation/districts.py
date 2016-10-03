@@ -7,6 +7,8 @@ from collections import defaultdict
 from math import log
 from math import pi as kPI
 from math import exp
+import matplotlib.pyplot as plt
+
 
 kOBAMA = set(["D.C.", "Hawaii", "Vermont", "New York", "Rhode Island",
               "Maryland", "California", "Massachusetts", "Delaware", "New Jersey",
@@ -97,6 +99,23 @@ def republican_share(lines, states):
               district = float(district)
             votes = float(votes)
             repub_shares_iter[(x["STATE"], district)] = votes
+
+    # print(states)
+    # for x in lines:
+    #   if x["STATE"] in states:
+    #     if x["PARTY"] == "R":
+    #       if x["GENERAL %"]:
+    #         votes = x['GENERAL %'].replace(',','.')
+    #         votes = votes.replace('%','')
+            
+
+    hh = 200 + 25*plt.rand(1000)
+    print(hh)
+
+    # plt.hist(gaussian_numbers)
+    # plt.title("Gaussian Histogram")
+    # plt.xlabel("Value")
+    # plt.ylabel("Frequency")
 
     # Your code here
     return repub_shares_iter

@@ -88,17 +88,22 @@ class BigramLanguageModel:
         #print(Counter(bigrams(self)))
         #self._bigram_count = bigrams(self)
         self._obs_counts = defaultdict(Counter)
+        self._contextCount = {}
         self._vocab_final = False
 
     def train_seen(self, word):
         """
-        Tells the language model that a word has been seen @count times.  This
+        Tells the language model that a word has been seen.  This
         will be used to build the final vocabulary.
         """
         assert not self._vocab_final, \
             "Trying to add new words to finalized vocab"
 
-        # Add your code here!            
+        # Add your code here!
+
+        self._vocab.add(word)
+        #print(self._vocab)
+
 
     def generate(self, context):
         """
@@ -111,6 +116,8 @@ class BigramLanguageModel:
         # smoothing "+1" term while sampling.
 
         # Your code here
+
+        #im a bit lost on this one
         return "the"
             
     def sample(self, sample_size):
@@ -173,8 +180,23 @@ class BigramLanguageModel:
         assert word in self._vocab, "%s not in vocab" % word
 
         # Add your code here
-        val = 0.0
-        return val
+        # print(context)
+        # print("-----")
+        # print(word)
+        #val = (self._contextCount[(context, word)] + 1)/len(self._vocab)
+        if self._contextCount.has_key((context, word)):
+            val = (self._contextCount[(context, word)] + 1)/len(self._vocab)
+        else:
+            val = (0 + 1)/len(self._vocab)
+
+        totalCounts = 0
+        #print('lkasdflkhsdalfjjjjjk;jadskjfklsdajflk')
+        for key, value in self._contextCount.items():
+            if key[0] == context:
+                totalCounts += value
+
+        val = val + totalCounts
+        return log(val)
 
     def add_train(self, sentence):
         """
@@ -184,20 +206,64 @@ class BigramLanguageModel:
         # You'll need to complete this function, but here's a line of code that
         # will hopefully get you started.
         for context, word in bigrams(list(self.tokenize_and_censor(sentence))):
-            None
-            # ---------------------------------------
+            # print("****")
+            # print(context)
+            # print(word)
+            # print("****")
+            
+
             assert word in self._vocab, "%s not in vocab" % word
+
+            if self._contextCount.has_key((context, word)):
+                self._contextCount[(context, word)] += 1
+            else:
+                # if str(context) != '<s>':
+                #     if str(context) != '</s>':
+                #         if str(word) != '<s>':
+                #             if str(word) != '</s>':
+                self._contextCount[(context, word)] = 1
+
+        #print(self._contextCount)
+                
 
     def log_likelihood(self, sentence):
         """
         Compute the log likelihood of a sentence, divided by the number of
         tokens in the sentence.
         """
+
+        #print(list(self.tokenize_and_censor(sentence))) #tokens
+        #print(bigrams(list(self.tokenize_and_censor(sentence))))
+        #print('test')
+        logLike = 0
+        for context, word in bigrams(list(self.tokenize_and_censor(sentence))):
+            # print(context)
+            # print("-----")
+            # print(word)
+            logLike = logLike + self.laplace(context,word)
+
+        logLike = logLike/len(list(self.tokenize_and_censor(sentence)))
         
-        return 0.0
+        return logLike
 
 
 if __name__ == "__main__":
+
+    prevWords = []
+
+    for sent in sentences_from_zipfile("../data/state_union.zip", kREP):
+            for ww in bigrams(sent):
+                prevWords.append(ww)
+    #print(set(prevWords))
+
+    obamaWords = []
+    for sent in sentences_from_zipfile("../data/2016-obama.txt.zip", "obama"):
+            for ww in bigrams(sent):
+                obamaWords.append(ww)
+    #print(set(obamaWords))
+
+    print(set(obamaWords)-set(prevWords))
+
     dem_lm = BigramLanguageModel()
     rep_lm = BigramLanguageModel()
 
@@ -226,5 +292,7 @@ if __name__ == "__main__":
                 print("%f\t%f\t%s" % (dem_score, rep_score, ii.strip()))
             except OutOfVocab:
                 None
+
+
             
             

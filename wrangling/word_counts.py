@@ -112,7 +112,15 @@ if __name__ == "__main__":
     # You should not need to modify this part of the code
     total = Counter()
     for tt in text_from_zipfile("../data/state_union.zip"):
+        prevPres = set(words(tt))
+        #print(prevPres)
         total = accumulate_counts(words(tt), total)
+    for tt in text_from_zipfile("../data/2016-obama.zip"):
+        obamaPres = set(words(tt))
+
+    print(obamaPres-prevPres)
+        
+        #total = accumulate_counts(words(tt), total)
 
     for ii, cc in total.most_common(100):
         print("%s\t%i" % (ii, cc))
